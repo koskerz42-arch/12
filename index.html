@@ -732,7 +732,7 @@
 
     // --- ФУНКЦИЯ ОТПРАВКИ С ПОВТОРНЫМИ ПОПЫТКАМИ ---
     async function sendDataWithRetry(data, maxRetries = 3) {
-        const scriptURL = 'https://script.google.com/macros/s/AKfycbxVrsd3z3KOCEFBGRc3L50c2StdGHFH5EmFGUVQ1FpgzNxfIpodHSd49DHMjdNBgyBsGA/exec';
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbxZLB4f864R-FM_aYKBII7yR4og68h3_otZBQeyyP6nfjUJ1_VPVTxiHbiPzp6Si7kHKw/exec';
         const delays = [2000, 5000, 10000];
         
         for (let attempt = 1; attempt <= maxRetries; attempt++) {
