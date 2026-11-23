@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Health and Lifestyle Study</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #333; max-width: 800px; margin: 0 auto; padding: 20px; background-color: #f4f7f6; }
+        h1, h2, h3 { color: #2c3e50; }
+        .container { background-color: #fff; padding: 30px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .section { margin-bottom: 30px; padding-bottom: 20px; border-bottom: 1px solid #eee; }
+        .question { margin-bottom: 15px; padding: 10px; background-color: #f9f9f9; border-radius: 5px; }
+        .question label { display: block; margin-bottom: 5px; font-weight: bold; }
+        .options { display: flex; flex-direction: column; gap: 5px; margin-top: 5px; }
+        .options label { font-weight: normal; display: flex; align-items: center; gap: 8px; cursor: pointer; }
+        input[type="text"], input[type="number"], input[type="tel"], select, textarea, input[type="time"] { width: 100%; padding: 8px; margin-top: 5px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
+        button { background-color: #27ae60; color: white; padding: 12px 20px; border: none; border-radius: 5px; cursor: pointer; font-size: 16px; width: 100%; margin-top: 20px; }
+        button:hover { background-color: #219150; }
+        #results { margin-top: 30px; padding: 20px; background-color: #e8f8f5; border-left: 5px solid #27ae60; display: none; }
+        .contact-info { margin-top: 20px; font-weight: bold; color: #d35400; }
+        .note { font-size: 0.9em; color: #7f8c8d; margin-top: 5px; font-style: italic; }
+        .consent-text { background-color: #fdfdfd; border: 1px solid #e0e0e0; padding: 15px; border-radius: 5px; margin-bottom: 15px; font-size: 0.95em; }
+        .consent-text p { margin-bottom: 10px; }
+        .intro-text { background-color: #eef7ff; border: 1px solid #bce0fd; padding: 15px; border-radius: 5px; margin-bottom: 20px; font-size: 0.95em; }
+        .intro-text p { margin-bottom: 10px; }
+        .checkbox-group { display: flex; flex-direction: column; gap: 5px; margin-top: 5px; }
+        .checkbox-group label { font-weight: normal; display: flex; align-items: center; gap: 8px; cursor: pointer; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Student Health and Lifestyle Study</h1>
+
+    <form id="surveyForm">
+
+        <!-- INFORMED CONSENT -->
+        <div class="section">
+            <h2>Informed Consent</h2>
+            
+            <div class="intro-text">
+                <p>Dear volunteer! We invite you to participate in a study dedicated to sleep disturbances, stress, and lifestyle among students. The survey is anonymous. All collected data will be used exclusively in aggregated form for scientific purposes.</p>
+                <p>Please answer the questions thoughtfully and honestly — the accuracy of the research results depends on it.</p>
+                <p>Participation is voluntary. You may stop filling out the questionnaire at any time. After reviewing the results, you can contact the researcher for a consultation by phone: <strong>+375292873195</strong>.</p>
+            </div>
+
+            <div class="consent-text">
+                <p><strong>I give my voluntary consent to participate in the study:</strong> "Prevalence of sleep disturbances, stress, and adherence to a healthy lifestyle among students".</p>
+                <p>I have received comprehensive explanations from the researcher who discussed my participation in the study regarding the nature, purposes, and duration of this research.</p>
+                <p>I confirm that I have fully read and understood the attached information. I had the opportunity to ask all questions that arose.</p>
+                <p>I understand that participation in this study is voluntary. I can withdraw my consent at any time without giving reasons, and this will not entail any undesirable consequences for my further education or treatment.</p>
+                <p>I understand that authorized representatives of regulatory organizations and the ethics committee may review certain sections of my medical records related to my participation in this study. By my signature, I grant them the right to access my medical records.</p>
+                <p>I understand that during this study, information will be collected that will be treated as confidential. My name will never be disclosed to anyone.</p>
+                <p>I agree to complete questionnaires about sleep, stress, and lifestyle, and, if necessary, to provide a morning urine sample for laboratory determination of 6-sulfatoxymelatonin.</p>
+                <p>I will not attempt to limit the possible use of the research results.</p>
+                <p>I agree to participate in this study and cooperate with the researcher.</p>
+                <p>I have received a signed copy of this volunteer information sheet and consent to participate in the study.</p>
+            </div>
+
+            <div class="question">
+                <label><input type="checkbox" id="consent" name="consent" required> I have read the terms and give my consent to participate in the study.</label>
+            </div>
+            
+            <div class="question">
+                <label for="phone">Contact phone number (for follow-up participation in the study):</label>
+                <input type="tel" id="phone" name="phone" placeholder="+375XXXXXXXXX" required>
+            </div>
+        </div>
+
+        <!-- GENERAL INFORMATION -->
+        <div class="section">
+            <h2>General Information</h2>
+
+            <div class="question">
+                <label for="gender">Gender:</label>
+                <select id="gender" name="gender" required>
+                    <option value="">-- Select --</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                </select>
+            </div>
+
+            <div class="question">
+                <label for="age">Age (full years):</label>
+                <input type="number" id="age" name="age" min="15" max="60" required>
+            </div>
+
+            <div class="question">
+                <label for="faculty">Faculty:</label>
+                <input type="text" id="faculty" name="faculty" required>
+            </div>
+
+            <div class="question">
+                <label for="course">Year of study:</label>
+                <select id="course" name="course" required>
+                    <option value="">-- Select --</option>
+                    <option value="1st year">1st year</option>
+                    <option value="2nd year">2nd year</option>
+                    <option value="3rd year">3rd year</option>
+                    <option value="4th year">4th year</option>
+                    <option value="5th year">5th year</option>
+                    <option value="6th year">6th year</option>
+                    <option value="Master's">Master's</option>
+                    <option value="PhD">PhD</option>
+                </select>
+            </div>
+
+            <div class="question">
+                <label for="education_form">Form of education:</label>
+                <select id="education_form" name="education_form" required>
+                    <option value="">-- Select --</option>
+                    <option value="State-funded">State-funded</option>
+                    <option value="Paid">Paid</option>
+                </select>
+            </div>
+
+            <div class="question">
+                <label for="employment">Employment status:</label>
+                <select id="employment" name="employment" required onchange="toggleNightShifts()">
+                    <option value="">-- Select --</option>
+                    <option value="Not working">Not working</option>
+                    <option value="Part-time (side job)">Part-time (side job)</option>
+                    <option value="Full-time">Full-time</option>
+                    <option value="Weekends / shifts">Weekends / shifts</option>
+                </select>
+            </div>
+
+            <div class="question" id="night_shifts_block" style="display:none;">
+                <label for="night_shifts">Night shifts at work:</label>
+                <select id="night_shifts" name="night_shifts">
+                    <option value="">-- Select --</option>
+                    <option value="No">No</option>
+                    <option value="Yes, rarely (a few times a month)">Yes, rarely (a few times a month)</option>
+                    <option value="Yes, regularly (1-2 times a week)">Yes, regularly (1-2 times a week)</option>
+                    <option value="Yes, often (3 or more times a week)">Yes, often (3 or more times a week)</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- MEDICAL AND PHYSIOLOGICAL CONTEXT -->
+        <div class="section">
+            <h2>Medical and Physiological Context</h2>
+
+            <div class="question">
+                <label for="chronic">Do you have a chronic disease requiring regular medication?</label>
+                <select id="chronic" name="chronic" required>
+                    <option value="No">No</option>
+                    <option value="Yes">Yes</option>
+                </select>
+                <input type="text" id="chronic_details" name="chronic_details" placeholder="If yes, please specify" style="margin-top: 10px;">
+            </div>
+
+            <div class="question">
+                <label for="energy_drinks">How often do you consume energy drinks?</label>
+                <select id="energy_drinks" name="energy_drinks" required>
+                    <option value="Never">Never</option>
+                    <option value="Once a week">Once a week</option>
+                    <option value="2-3 times a week">2-3 times a week</option>
+                    <option value="Daily">Daily</option>
+                </select>
+            </div>
+
+            <div class="question">
+                <label for="bad_habits">Do you have any bad habits (smoking, alcohol, etc.)?</label>
+                <select id="bad_habits" name="bad_habits" required onchange="toggleBadHabits()">
+                    <option value="No">No</option>
+                    <option value="Yes">Yes</option>
+                </select>
+                <div id="bad_habits_details_block" style="display:none; margin-top:10px;">
+                    <input type="text" id="bad_habits_details" name="bad_habits_details" placeholder="Please specify">
+                </div>
+            </div>
+
+            <div class="question">
+                <label for="caffeine_afternoon">Do you consume coffee or energy drinks in the afternoon (after 3:00 PM)?</label>
+                <select id="caffeine_afternoon" name="caffeine_afternoon" required>
+                    <option value="Never">Never</option>
+                    <option value="Rarely">Rarely</option>
+                    <option value="Often">Often</option>
+                    <option value="Daily">Daily</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- NUTRITION -->
+        <div class="section">
+            <h2>Nutrition</h2>
+
+            <div class="question">
+                <label for="meals_per_day">How many meals per day do you usually have?</label>
+                <select id="meals_per_day" name="meals_per_day" required>
+                    <option value="">-- Select --</option>
+                    <option value="1–2">1–2</option>
+                    <option value="3">3</option>
+                    <option value="4–5">4–5</option>
+                    <option value="More than 5">More than 5</option>
+                </select>
+            </div>
+
+            <div class="question">
+                <label for="skip_breakfast">How often do you skip breakfast?</label>
+                <select id="skip_breakfast" name="skip_breakfast" required>
+                    <option value="">-- Select --</option>
+                    <option value="Never">Never</option>
+                    <option value="1–2 times a week">1–2 times a week</option>
+                    <option value="3–4 times a week">3–4 times a week</option>
+                    <option value="Every day">Every day</option>
+                </select>
+            </div>
+
+            <div class="question">
+                <label for="late_eating">How often do you eat later than 2 hours before bedtime?</label>
+                <select id="late_eating" name="late_eating" required>
+                    <option value="">-- Select --</option>
+                    <option value="Never">Never</option>
+                    <option value="Sometimes">Sometimes</option>
+                    <option value="Often">Often</option>
+                    <option value="Always">Always</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- DIGITAL HYGIENE -->
+        <div class="section">
+            <h2>Digital Hygiene</h2>
+
+            <div class="question">
+                <label for="internet_time">How much time do you spend on the Internet (per day)?</label>
+                <select id="internet_time" name="internet_time" required>
+                    <option value="Less than 1 hour">Less than 1 hour</option>
+                    <option value="1-3 hours">1-3 hours</option>
+                    <option value="3-5 hours">3-5 hours</option>
+                    <option value="More than 5 hours">More than 5 hours</option>
+                </select>
+            </div>
+
+            <div class="question">
+                <label for="gadgets_1h">Do you use gadgets an hour before bedtime?</label>
+                <select id="gadgets_1h" name="gadgets_1h" required>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                </select>
+            </div>
+
+            <div class="question">
+                <label for="gadgets_before_sleep_time">How much time on average do you spend on gadgets in the hour before bedtime?</label>
+                <select id="gadgets_before_sleep_time" name="gadgets_before_sleep_time" required>
+                    <option value="">-- Select --</option>
+                    <option value="Less than 15 minutes">Less than 15 minutes</option>
+                    <option value="15–30 minutes">15–30 minutes</option>
+                    <option value="30–60 minutes">30–60 minutes</option>
+                    <option value="More than an hour">More than an hour</option>
+                </select>
+            </div>
+
+            <div class="question">
+                <label for="gadgets_before_sleep_activity">What do you usually do on gadgets before bedtime?</label>
+                <select id="gadgets_before_sleep_activity" name="gadgets_before_sleep_activity" required>
+                    <option value="">-- Select --</option>
+                    <option value="Social media">Social media</option>
+                    <option value="Watching videos">Watching videos</option>
+                    <option value="Studying">Studying</option>
+                    <option value="Gaming">Gaming</option>
+                    <option value="Reading">Reading</option>
+                    <option value="Other">Other</option>
+                </select>
+            </div>
+
+            <div class="question">
+                <label for="blue_light_filter">Do you use "Do Not Disturb" mode or a blue light filter in the evening?</label>
+                <select id="blue_light_filter" name="blue_light_filter" required>
+                    <option value="">-- Select --</option>
+                    <option value="Yes, always">Yes, always</option>
+                    <option value="Sometimes">Sometimes</option>
+                    <option value="No">No</option>
+                    <option value="I don't know about it">I don't know about it</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- PSS-14 -->
+        <div class="section">
+            <h2>Perceived Stress Scale (PSS-14)</h2>
+            <p class="note">Rate how often you have experienced the following states over the past month (1 – Never, 5 – Very often).</p>
+            <div id="pss_questions"></div>
+        </div>
+
+        <!-- PSYCHOSOCIAL FACTORS AND STRESS -->
+        <div class="section">
+            <h2>Psychosocial Factors and Stress</h2>
+
+            <div class="question">
+                <label>What is the main source of stress for you recently? (multiple choice allowed)</label>
+                <div class="checkbox-group">
+                    <label><input type="checkbox" name="stress_sources" value="Studying"> Studying</label>
+                    <label><input type="checkbox" name="stress_sources" value="Work"> Work</label>
+                    <label><input type="checkbox" name="stress_sources" value="Finances"> Finances</label>
+                    <label><input type="checkbox" name="stress_sources" value="Relationships"> Relationships</label>
+                    <label><input type="checkbox" name="stress_sources" value="Health"> Health</label>
+                    <label><input type="checkbox" name="stress_sources" value="Family"> Family</label>
+                    <label><input type="checkbox" name="stress_sources" value="Uncertainty about the future"> Uncertainty about the future</label>
+                    <label><input type="checkbox" name="stress_sources" value="Other"> Other</label>
+                </div>
+            </div>
+
+            <div class="question">
+                <label>How do you usually cope with stress? (multiple choice allowed)</label>
+                <div class="checkbox-group">
+                    <label><input type="checkbox" name="stress_coping" value="Sports"> Sports</label>
+                    <label><input type="checkbox" name="stress_coping" value="Talking with friends"> Talking with friends</label>
+                    <label><input type="checkbox" name="stress_coping" value="Gadgets"> Gadgets</label>
+                    <label><input type="checkbox" name="stress_coping" value="Sleep"> Sleep</label>
+                    <label><input type="checkbox" name="stress_coping" value="Alcohol"> Alcohol</label>
+                    <label><input type="checkbox" name="stress_coping" value="Smoking"> Smoking</label>
+                    <label><input type="checkbox" name="stress_coping" value="Eating"> Eating</label>
+                    <label><input type="checkbox" name="stress_coping" value="Hobbies"> Hobbies</label>
+                    <label><input type="checkbox" name="stress_coping" value="Psychotherapy"> Psychotherapy</label>
+                    <label><input type="checkbox" name="stress_coping" value="I do nothing"> I do nothing</label>
+                </div>
+            </div>
+
+            <div class="question">
+                <label for="loneliness">Rate your level of loneliness over the past month:</label>
+                <select id="loneliness" name="loneliness" required>
+                    <option value="">-- Select --</option>
+                    <option value="I do not feel lonely">I do not feel lonely</option>
+                    <option value="Rarely">Rarely</option>
+                    <option value="Often">Often</option>
+                    <option value="Constantly">Constantly</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- HADS -->
+        <div class="section">
+            <h2>Hospital Anxiety and Depression Scale (HADS)</h2>
+            <p class="note">Choose the answer that best describes your current state.</p>
+            <h3>Part I (Anxiety)</h3>
+            <div id="hads_anxiety"></div>
+            <h3>Part II (Depression)</h3>
+            <div id="hads_depression"></div>
+        </div>
+
+        <!-- ISI -->
+        <div class="section">
+            <h2>Insomnia Severity Index (ISI)</h2>
+            <div id="isi_questions"></div>
+        </div>
+
+        <!-- SLEEP DETAILS -->
+        <div class="section">
+            <h2>Sleep Details</h2>
+
+            <div class="question">
+                <label for="sleep_restores">Do you feel that your sleep restores your energy?</label>
+                <select id="sleep_restores" name="sleep_restores" required>
+                    <option value="">-- Select --</option>
+                    <option value="Yes, completely">Yes, completely</option>
+                    <option value="Partially">Partially</option>
+                    <option value="No">No</option>
+                    <option value="Difficult to answer">Difficult to answer</option>
+                </select>
+            </div>
+
+            <div class="question">
+                <label for="phone_at_night">Do you wake up at night to check your phone?</label>
+                <select id="phone_at_night" name="phone_at_night" required>
+                    <option value="">-- Select --</option>
+                    <option value="Never">Never</option>
+                    <option value="Rarely">Rarely</option>
+                    <option value="Often">Often</option>
+                    <option value="Almost every night">Almost every night</option>
+                </select>
+            </div>
+
+            <div class="question">
+                <label for="self_treatment_insomnia">Have you ever tried to "treat" insomnia on your own (melatonin, herbs, alcohol)?</label>
+                <select id="self_treatment_insomnia" name="self_treatment_insomnia" required>
+                    <option value="">-- Select --</option>
+                    <option value="No">No</option>
+                    <option value="Yes, once">Yes, once</option>
+                    <option value="Yes, regularly">Yes, regularly</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- HPLP-II -->
+        <div class="section">
+            <h2>Health-Promoting Lifestyle Profile (HPLP-II)</h2>
+            <p class="note">Rate how much you agree with the statements (1 – strongly disagree, 4 – strongly agree).</p>
+            <div id="hplp_questions"></div>
+        </div>
+
+        <!-- PSQI -->
+        <div class="section">
+            <h2>Pittsburgh Sleep Quality Index (PSQI)</h2>
+            <p class="note">The following questions relate to your usual sleep habits during the past month only. Please answer all questions. For each question, choose the one best answer.</p>
+            <div id="psqi_questions"></div>
+        </div>
+
+        <!-- CHRONOTYPE -->
+        <div class="section">
+            <h2>Chronotype Questionnaire</h2>
+            <p class="note">Answer the questions based on your internal preferences and how you have felt over the past few weeks. Imagine that you are completely free from work schedules and social obligations. Choose only one option per question.</p>
+            <div id="chronotype_questions"></div>
+        </div>
+
+        <!-- ACADEMIC LOAD -->
+        <div class="section">
+            <h2>Academic Load</h2>
+
+            <div class="question">
+                <label for="prep_night">How often do you study at night?</label>
+                <select id="prep_night" name="prep_night" required>
+                    <option value="">-- Select --</option>
+                    <option value="No">No</option>
+                    <option value="Yes, rarely (a few times a month)">Yes, rarely (a few times a month)</option>
+                    <option value="Yes, regularly (1-2 times a week)">Yes, regularly (1-2 times a week)</option>
+                    <option value="Yes, often (3 or more times a week)">Yes, often (3 or more times a week)</option>
+                </select>
+            </div>
+
+            <div class="question">
+                <label for="study_time">How much time per day do you spend on studying (including classes and self-study)?</label>
+                <select id="study_time" name="study_time" required>
+                    <option value="">-- Select --</option>
+                    <option value="Less than 2 hours">Less than 2 hours</option>
+                    <option value="2–4 hours">2–4 hours</option>
+                    <option value="4–6 hours">4–6 hours</option>
+                    <option value="More than 6 hours">More than 6 hours</option>
+                </select>
+            </div>
+
+            <div class="question">
+                <label for="commute_time">How much time per day do you spend commuting to study/work?</label>
+                <select id="commute_time" name="commute_time" required>
+                    <option value="">-- Select --</option>
+                    <option value="Less than 30 minutes">Less than 30 minutes</option>
+                    <option value="30–60 minutes">30–60 minutes</option>
+                    <option value="1–2 hours">1–2 hours</option>
+                    <option value="More than 2 hours">More than 2 hours</option>
+                </select>
+            </div>
+
+            <div class="question">
+                <label for="academic_performance">How do you rate your academic performance?</label>
+                <select id="academic_performance" name="academic_performance" required>
+                    <option value="">-- Select --</option>
+                    <option value="Excellent">Excellent</option>
+                    <option value="Good">Good</option>
+                    <option value="Satisfactory">Satisfactory</option>
+                    <option value="Have academic debts">Have academic debts</option>
+                </select>
+            </div>
+        </div>
+
+        <button type="submit" id="submitBtn">Finish and Get Results</button>
+    </form>
+
+    <div id="results">
+        <h2>Your Results</h2>
+        <div id="resultsContent"></div>
+        <div class="contact-info">
+            <p>If you would like a consultation based on the results of this study, please contact the researcher by phone: <strong>+375292873195</strong></p>
+        </div>
+    </div>
+</div>
+
+<script>
+    // --- DATA FOR GENERATING QUESTIONS ---
+    const pssQuestions = ["been upset because of something that happened unexpectedly?","felt that you were unable to control the important things in your life?","felt nervous and stressed?","felt confident about your ability to handle your personal problems?","felt that things were going your way?","found that you could not cope with all the things that you had to do?","been able to control irritations in your life?","felt that you were on top of things?","been angered because of things that happened that were outside of your control?","found yourself thinking about things that you have to accomplish?","been able to control the way you spend your time?","felt difficulties were piling up so high that you could not overcome them?"];
+    
+    const hadsAnxietyQuestions = [{q:"1. I feel tense or 'wound up'",opts:["[3] Most of the time","[2] A lot of the time","[1] From time to time, occasionally","[0] Not at all"]},{q:"2. I get a sort of frightened feeling as if something awful is about to happen",opts:["[3] Very definitely and quite badly","[2] Yes, but not too badly","[1] A little, but it doesn't worry me","[0] Not at all"]},{q:"3. Worrying thoughts go through my mind",opts:["[3] A great deal of the time","[2] A lot of the time","[1] From time to time, but not too often","[0] Only occasionally"]},{q:"4. I can sit at ease and feel relaxed",opts:["[0] Definitely","[1] Usually","[2] Not often","[3] Not at all"]},{q:"5. I get a sort of frightened feeling like 'butterflies' in the stomach",opts:["[0] Not at all","[1] Occasionally","[2] Quite often","[3] Very often"]},{q:"6. I feel restless as if I have to be on the move",opts:["[3] Very much indeed","[2] Quite a lot","[1] Not very much","[0] Not at all"]},{q:"7. I get sudden feelings of panic",opts:["[3] Very often indeed","[2] Quite often","[1] Not very often","[0] Not at all"]}];
+    
+    const hadsDepressionQuestions = [{q:"1. I still enjoy the things I used to enjoy",opts:["[0] Definitely as much","[1] Not quite so much","[2] Only a little","[3] Hardly at all"]},{q:"2. I can laugh and see the funny side of things",opts:["[0] As much as I always could","[1] Not quite so much now","[2] Definitely not so much now","[3] Not at all"]},{q:"3. I feel cheerful",opts:["[3] Not at all","[2] Not often","[1] Sometimes","[0] Most of the time"]},{q:"4. I feel as if I am slowed down",opts:["[3] Nearly all the time","[2] Very often","[1] Sometimes","[0] Not at all"]},{q:"5. I have lost interest in my appearance",opts:["[3] Definitely","[2] I don't take as much care as I should","[1] I may not take quite as much care","[0] I take just as much care as ever"]},{q:"6. I look forward with enjoyment to things",opts:["[0] As much as I ever did","[1] Rather less than I used to","[2] Definitely less than I used to","[3] Hardly at all"]},{q:"7. I can enjoy a good book or radio or TV program",opts:["[0] Often","[1] Sometimes","[2] Not often","[3] Very seldom"]}];
+    
+    const isiQuestions = [
+        { q: "Difficulty falling asleep", opts: ["none", "mild", "moderate", "severe", "very severe"] },
+        { q: "Difficulty staying asleep (frequent awakenings)", opts: ["none", "mild", "moderate", "severe", "very severe"] },
+        { q: "Problem waking up too early", opts: ["none", "mild", "moderate", "severe", "very severe"] },
+        { q: "How satisfied/dissatisfied are you with your current sleep pattern?", opts: ["very satisfied", "satisfied", "moderately dissatisfied", "dissatisfied", "very dissatisfied"] },
+        { q: "How noticeable to others do you think your sleep problem is in terms of impairing the quality of your life?", opts: ["not at all noticeable", "a little", "somewhat", "much", "very much noticeable"] },
+        { q: "How worried/distressed are you about your current sleep problem?", opts: ["not at all worried", "a little", "somewhat", "much", "very much worried"] },
+        { q: "To what extent do you consider your sleep problem to interfere with your daily functioning (e.g., daytime fatigue, mood, ability to function at work/daily chores, concentration, memory, mood, etc.)?", opts: ["not at all interfering", "a little", "somewhat", "much", "very much interfering"] }
+    ];
+    
+    const hplpQuestions = [
+        "Discuss my problems and concerns with people close to me.",
+        "Choose a diet low in fat and cholesterol.",
+        "Report any unusual signs or symptoms to a physician.",
+        "Follow a planned exercise program.",
+        "Get enough sleep.",
+        "Feel I am growing and changing personally in positive ways.",
+        "Praise other people easily for their achievements.",
+        "Limit use of sugars and food containing sugar.",
+        "Read or watch programs about health.",
+        "Exercise vigorously for 20 or more minutes at least three times a week.",
+        "Take some time for relaxation each day.",
+        "Believe that my life has purpose.",
+        "Maintain meaningful and fulfilling relationships with others.",
+        "Eat 6-11 servings of bread, cereal, rice and pasta each day.",
+        "Ask for information from health professionals about how to take good care of myself.",
+        "Exercise by walking briskly for 30-40 minutes at least five times a week.",
+        "Accept those things in my life which I cannot change.",
+        "Look forward to the future.",
+        "Spend time with close friends.",
+        "Eat 2-4 servings of fruit each day.",
+        "Seek guidance from health professionals when needed.",
+        "Take part in leisure-time physical activities (swimming, dancing, bicycling).",
+        "When I go to sleep, I concentrate on pleasant thoughts.",
+        "Feel content and at peace with myself.",
+        "Am easy going and express my care, love and warmth to others.",
+        "Eat 3-5 servings of vegetables each day.",
+        "Discuss my health concerns with different health professionals.",
+        "Do stretching exercises at least 3 times per week.",
+        "Use specific techniques to control my stress.",
+        "Set realistic goals for myself.",
+        "Find my relationships with others satisfying and fulfilling.",
+        "Eat 2-3 servings of milk, yogurt or cheese each day.",
+        "Inspect my body at least monthly for physical changes/danger signs.",
+        "Get exercise during usual daily activities (e.g., use stairs instead of elevator).",
+        "Balance time between work and play.",
+        "Find each day interesting and challenging.",
+        "Am aware of what is important to me in life.",
+        "Am supported by people with whom I interact.",
+        "Read food labels to identify nutrient content.",
+        "Participate in health-promoting programs.",
+        "Achieve target heart rate during exercise.",
+        "Slow down when I get tired.",
+        "Feel connected with some force greater than myself.",
+        "Resolve conflicts through discussion and compromise.",
+        "Eat breakfast.",
+        "Seek support from others when needed.",
+        "Am open to new experiences and challenges."
+    ];
+
+    const chronotypeQuestions = [
+        { q: "1. Considering only your own 'feeling best' rhythm, at what time would you get up if you were entirely free to plan your day?", opts: [{ text: "05:00 – 06:30", score: 5 }, { text: "06:30 – 07:45", score: 4 }, { text: "07:45 – 09:45", score: 3 }, { text: "09:45 – 11:00", score: 2 }, { text: "11:00 – 12:00", score: 1 }] },
+        { q: "2. Considering only your own 'feeling best' rhythm, at what time would you go to bed if you were entirely free to plan your evening?", opts: [{ text: "20:00 – 21:00", score: 5 }, { text: "21:00 – 22:15", score: 4 }, { text: "22:15 – 00:30", score: 3 }, { text: "00:30 – 01:45", score: 2 }, { text: "01:45 – 03:00", score: 1 }] },
+        { q: "3. If there is a specific time at which you have to get up in the morning, how much do you depend on being woken by an alarm clock?", opts: [{ text: "Not at all dependent", score: 4 }, { text: "Slightly dependent", score: 3 }, { text: "Fairly dependent", score: 2 }, { text: "Very dependent", score: 1 }] },
+        { q: "4. Assuming adequate environmental conditions, how easy do you find getting up in the morning?", opts: [{ text: "Not at all easy", score: 1 }, { text: "Not very easy", score: 2 }, { text: "Fairly easy", score: 3 }, { text: "Very easy", score: 4 }] },
+        { q: "5. How alert do you feel during the first half hour after you wake up in the morning?", opts: [{ text: "Not at all alert", score: 1 }, { text: "Slightly alert", score: 2 }, { text: "Fairly alert", score: 3 }, { text: "Very alert", score: 4 }] },
+        { q: "6. How is your appetite during the first half hour after you wake up in the morning?", opts: [{ text: "Very poor", score: 1 }, { text: "Fairly poor", score: 2 }, { text: "Fairly good", score: 3 }, { text: "Very good", score: 4 }] },
+        { q: "7. During the first half hour after you wake up in the morning, how tired do you feel?", opts: [{ text: "Very tired", score: 1 }, { text: "Fairly tired", score: 2 }, { text: "Fairly refreshed", score: 3 }, { text: "Very refreshed", score: 4 }] },
+        { q: "8. When you have no commitments the next day, at what time do you go to bed compared to your usual bedtime?", opts: [{ text: "Seldom or never later", score: 4 }, { text: "Less than one hour later", score: 3 }, { text: "1-2 hours later", score: 2 }, { text: "More than two hours later", score: 1 }] },
+        { q: "9. You have decided to engage in physical exercise. A friend suggests you exercise from 7:00 to 8:00 AM twice a week. Considering your 'feeling best' rhythm, how do you think you would perform?", opts: [{ text: "Would be in good form", score: 4 }, { text: "Would be in reasonable form", score: 3 }, { text: "Would find it difficult", score: 2 }, { text: "Would find it very difficult", score: 1 }] },
+        { q: "10. At what time in the evening do you feel tired and as a result in need of sleep?", opts: [{ text: "20:00 – 21:00", score: 5 }, { text: "21:00 – 22:15", score: 4 }, { text: "22:15 – 00:45", score: 3 }, { text: "00:45 – 02:00", score: 2 }, { text: "02:00 – 03:00", score: 1 }] },
+        { q: "11. You wish to be at your peak performance for a test that you know is going to be mentally exhausting and will last for two hours. You are entirely free to plan your day. Which one of the four testing times would you choose?", opts: [{ text: "08:00 – 11:00", score: 4 }, { text: "11:00 – 15:00", score: 3 }, { text: "15:00 – 19:00", score: 2 }, { text: "19:00 – 23:00", score: 1 }] },
+        { q: "12. If you went to bed at 11:00 PM, how tired would you be?", opts: [{ text: "Not at all tired", score: 1 }, { text: "A little tired", score: 2 }, { text: "Fairly tired", score: 3 }, { text: "Very tired", score: 4 }] },
+        { q: "13. For some reason you have gone to bed several hours later than usual, but there is no need to get up at any particular time the next morning. Which are you most likely to do?", opts: [{ text: "Will wake up at usual time and will not fall asleep again", score: 4 }, { text: "Will wake up at usual time and will doze thereafter", score: 3 }, { text: "Will wake up at usual time but will fall asleep again", score: 2 }, { text: "Will not wake up until later than usual", score: 1 }] },
+        { q: "14. One night you have to remain awake between 11:00 PM and 5:00 AM in order to carry out a night watch. You have no commitments the next day. Which alternative would suit you best?", opts: [{ text: "Would take a nap before and sleep after", score: 4 }, { text: "Would take a good sleep before and nap after", score: 3 }, { text: "Would take a good sleep before and sleep after", score: 2 }, { text: "Would take a good sleep before and stay awake after", score: 1 }] },
+        { q: "15. You have to do two hours of hard physical work. You are entirely free to plan your day. Which of the following times would you choose?", opts: [{ text: "08:00 – 10:00", score: 4 }, { text: "11:00 – 13:00", score: 3 }, { text: "15:00 – 17:00", score: 2 }, { text: "19:00 – 21:00", score: 1 }] },
+        { q: "16. You have decided to engage in hard physical exercise. A friend suggests you exercise from 10:00 to 11:00 PM twice a week. Considering your 'feeling best' rhythm, how well do you think you would perform?", opts: [{ text: "Would be in good form", score: 1 }, { text: "Would be in reasonable form", score: 2 }, { text: "Would find it difficult", score: 3 }, { text: "Would find it very difficult", score: 4 }] },
+        { q: "17. Suppose that you can choose your own work hours. Assume that you work a five-hour day (including breaks) and that your job is interesting and pays according to performance. At what time would you choose to start work?", opts: [{ text: "Starting at 04:00 – 08:00", score: 5 }, { text: "Starting at 08:00 – 09:00", score: 4 }, { text: "Starting at 09:00 – 14:00", score: 3 }, { text: "Starting at 14:00 – 17:00", score: 2 }, { text: "Starting at 17:00 – 04:00", score: 1 }] },
+        { q: "18. At what time of day do you feel you become tired as a result of need for sleep?", opts: [{ text: "05:00 – 08:00", score: 5 }, { text: "08:00 – 10:00", score: 4 }, { text: "10:00 – 17:00", score: 3 }, { text: "17:00 – 22:00", score: 2 }, { text: "22:00 – 05:00", score: 1 }] },
+        { q: "19. One hears about 'morning' and 'evening' types of people. Which one of these types do you consider yourself to be?", opts: [{ text: "Definitely a morning type", score: 6 }, { text: "Rather more a morning type than an evening type", score: 4 }, { text: "Rather more an evening type than a morning type", score: 2 }, { text: "Definitely an evening type", score: 0 }] }
+    ];
+
+    // --- CONDITIONAL DISPLAY ---
+    function toggleNightShifts() {
+        const employment = document.getElementById('employment').value;
+        const block = document.getElementById('night_shifts_block');
+        const select = document.getElementById('night_shifts');
+        if (employment && employment !== 'Not working') {
+            block.style.display = 'block';
+            select.required = true;
+        } else {
+            block.style.display = 'none';
+            select.required = false;
+            select.value = '';
+        }
+    }
+
+    function toggleBadHabits() {
+        const badHabits = document.getElementById('bad_habits').value;
+        const block = document.getElementById('bad_habits_details_block');
+        const input = document.getElementById('bad_habits_details');
+        if (badHabits === 'Yes') {
+            block.style.display = 'block';
+            input.required = true;
+        } else {
+            block.style.display = 'none';
+            input.required = false;
+            input.value = '';
+        }
+    }
+
+    // --- HTML GENERATION ---
+    function generatePSS() { let html = ''; for (let i = 0; i < pssQuestions.length; i++) { html += `<div class="question"><label>${i + 1}. In the last month, how often have you ${pssQuestions[i]}</label><div class="options">${[1, 2, 3, 4, 5].map(val => `<label><input type="radio" name="pss${i + 1}" value="${val}" required> ${val} - ${val === 1 ? 'Never' : val === 2 ? 'Almost never' : val === 3 ? 'Sometimes' : val === 4 ? 'Fairly often' : 'Very often'}</label>`).join('')}</div></div>`; } document.getElementById('pss_questions').innerHTML = html; }
+    
+    function generateHADS() { let htmlAnx = ''; hadsAnxietyQuestions.forEach((q, i) => { htmlAnx += `<div class="question"><label>${q.q}</label><div class="options">${q.opts.map((opt, j) => `<label><input type="radio" name="hads_anx${i + 1}" value="${3 - j}" required> ${opt}</label>`).join('')}</div></div>`; }); document.getElementById('hads_anxiety').innerHTML = htmlAnx; let htmlDep = ''; hadsDepressionQuestions.forEach((q, i) => { htmlDep += `<div class="question"><label>${q.q}</label><div class="options">${q.opts.map((opt, j) => `<label><input type="radio" name="hads_dep${i + 1}" value="${j}" required> ${opt}</label>`).join('')}</div></div>`; }); document.getElementById('hads_depression').innerHTML = htmlDep; }
+    
+    function generateISI() { 
+        let html = ''; 
+        isiQuestions.forEach((q, i) => { 
+            html += `<div class="question">
+                <label>${i + 1}. ${q.q}</label>
+                <div class="options">
+                    ${[0, 1, 2, 3, 4].map(val => `
+                        <label><input type="radio" name="isi${i + 1}" value="${val}" required> 
+                            ${val} — ${q.opts[val]}
+                        </label>
+                    `).join('')}
+                </div>
+            </div>`; 
+        }); 
+        document.getElementById('isi_questions').innerHTML = html; 
+    }
+    
+    function generateHPLP() { let html = ''; hplpQuestions.forEach((q, i) => { html += `<div class="question"><label>${i + 1}. ${q}</label><div class="options">${[1, 2, 3, 4].map(val => `<label><input type="radio" name="hplp${i + 1}" value="${val}" required> ${val} - ${val === 1 ? 'strongly disagree' : val === 2 ? 'disagree' : val === 3 ? 'agree' : 'strongly agree'}</label>`).join('')}</div></div>`; }); document.getElementById('hplp_questions').innerHTML = html; }
+    
+    function generatePSQI() {
+        let html = `
+            <div class="question"><label>1. During the past month, when have you usually gone to bed at night?</label><input type="time" name="psqi1" required></div>
+            <div class="question"><label>2. During the past month, how long (in minutes) has it usually taken you to fall asleep each night?</label><input type="number" name="psqi2" min="0" required> <span>minutes</span></div>
+            <div class="question"><label>3. During the past month, when have you usually gotten up in the morning?</label><input type="time" name="psqi3" required></div>
+            <div class="question"><label>4. During the past month, how many hours of actual sleep did you get at night? (This may be different from the number of hours you spent in bed.)</label><input type="number" name="psqi4" step="0.5" min="0" max="24" required> <span>hours</span></div>
+        `;
+        
+        const freqOpts = [0, 1, 2, 3].map(val => {
+            let text = val === 0 ? 'Not during the past month' : val === 1 ? 'Less than once a week' : val === 2 ? 'Once or twice a week' : 'Three or more times a week';
+            return `<label><input type="radio" name="psqi5_RADIO_NAME" value="${val}" required> ${text}</label>`;
+        }).join('');
+
+        const psqi5SubQ = [
+            { id: 'a', text: 'cannot get to sleep within 30 minutes' },
+            { id: 'b', text: 'wake up in the middle of the night or early morning' },
+            { id: 'c', text: 'have to get up to use the bathroom' },
+            { id: 'd', text: 'cannot breathe comfortably' },
+            { id: 'e', text: 'cough or snore loudly' },
+            { id: 'f', text: 'feel too cold' },
+            { id: 'g', text: 'feel too hot' },
+            { id: 'h', text: 'have bad dreams' },
+            { id: 'i', text: 'have pain' }
+        ];
+
+        html += `<div class="question"><label>5. During the past month, how often have you had trouble sleeping because you ...</label><div style="margin-left: 15px; margin-top: 10px;">`;
+        psqi5SubQ.forEach(subQ => { 
+            html += `<div style="margin-bottom: 15px;">
+                <label>${subQ.id}) ${subQ.text}</label>
+                <div class="options">
+                    ${freqOpts.replace(/psqi5_RADIO_NAME/g, 'psqi5' + subQ.id)}
+                </div>
+            </div>`; 
+        });
+        html += `</div></div>`;
+
+        html += `
+            <div class="question">
+                <label>6. During the past month, how would you rate your sleep quality overall?</label>
+                <div class="options">
+                    ${[0, 1, 2, 3].map(val => `<label><input type="radio" name="psqi6" value="${val}" required> ${val === 0 ? 'Very good' : val === 1 ? 'Fairly good' : val === 2 ? 'Fairly bad' : 'Very bad'}</label>`).join('')}
+                </div>
+            </div>
+            <div class="question">
+                <label>7. During the past month, how often have you taken medicine (prescribed or "over the counter") to help you sleep?</label>
+                <div class="options">
+                    ${freqOpts.replace(/psqi5_RADIO_NAME/g, 'psqi7')}
+                </div>
+            </div>
+            <div class="question">
+                <label>8. During the past month, how often have you had trouble staying awake while driving, eating meals, or engaging in social activity?</label>
+                <div class="options">
+                    ${freqOpts.replace(/psqi5_RADIO_NAME/g, 'psqi8')}
+                </div>
+            </div>
+            <div class="question">
+                <label>9. During the past month, how much of a problem has it been for you to keep up enough enthusiasm to get things done?</label>
+                <div class="options">
+                    ${[0, 1, 2, 3].map(val => `<label><input type="radio" name="psqi9" value="${val}" required> ${val === 0 ? 'No problem at all' : val === 1 ? 'Only a very slight problem' : val === 2 ? 'Somewhat of a problem' : 'A very big problem'}</label>`).join('')}
+                </div>
+            </div>
+            <div class="question">
+                <label>10. Do you have a bed partner or roommate?</label>
+                <div class="options">
+                    <label><input type="radio" name="psqi10" value="0" required> No bed partner or roommate</label>
+                    <label><input type="radio" name="psqi10" value="1" required> Partner/roommate in other room</label>
+                    <label><input type="radio" name="psqi10" value="2" required> Partner in same room, but not same bed</label>
+                    <label><input type="radio" name="psqi10" value="3" required> Partner in same bed</label>
+                </div>
+            </div>
+        `;
+
+        const psqi10SubQ = [
+            { id: 'a', text: 'loud snoring' },
+            { id: 'b', text: 'long pauses between breaths while asleep' },
+            { id: 'c', text: 'legs twitching or jerking while you sleep' },
+            { id: 'd', text: 'episodes of disorientation or confusion during sleep' },
+            { id: 'e', text: 'other restlessness while you sleep; please describe' }
+        ];
+
+        html += `<div class="question"><label>If you have a bed partner or roommate, ask him/her how often in the past month you have had ...</label><div style="margin-left: 15px; margin-top: 10px;">`;
+        psqi10SubQ.forEach(subQ => {
+            html += `<div style="margin-bottom: 15px;">
+                <label>${subQ.id}) ${subQ.text} ${subQ.id === 'e' ? '<input type="text" name="psqi10e_desc" placeholder="Describe" style="width: auto; display: inline-block; margin-left: 10px;">' : ''}</label>
+                <div class="options">
+                    ${freqOpts.replace(/psqi5_RADIO_NAME/g, 'psqi10' + subQ.id)}
+                </div>
+            </div>`;
+        });
+        html += `</div></div>`;
+
+        document.getElementById('psqi_questions').innerHTML = html;
+    }
+
+    function generateChronotype() {
+        let html = '';
+        chronotypeQuestions.forEach((q, i) => {
+            html += `<div class="question">
+                <label>${q.q}</label>
+                <div class="options">
+                    ${q.opts.map((opt, j) => `
+                        <label><input type="radio" name="chrono${i+1}" value="${opt.score}" required> 
+                            ${opt.text}
+                        </label>
+                    `).join('')}
+                </div>
+            </div>`;
+        });
+        document.getElementById('chronotype_questions').innerHTML = html;
+    }
+
+    generatePSS(); generateHADS(); generateISI(); generateHPLP(); generatePSQI(); generateChronotype();
+
+    toggleNightShifts();
+    toggleBadHabits();
+
+    // --- SEND DATA WITH RETRY ---
+    async function sendDataWithRetry(data, maxRetries = 3) {
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbxVrsd3z3KOCEFBGRc3L50c2StdGHFH5EmFGUVQ1FpgzNxfIpodHSd49DHMjdNBgyBsGA/exec';
+        const delays = [2000, 5000, 10000];
+        
+        for (let attempt = 1; attempt <= maxRetries; attempt++) {
+            try {
+                await fetch(scriptURL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    body: JSON.stringify(data),
+                    headers: { 'Content-Type': 'text/plain;charset=utf-8' }
+                });
+                console.log(`Attempt ${attempt}: request sent`);
+                return true;
+            } catch (error) {
+                console.error(`Attempt ${attempt} failed:`, error);
+                if (attempt < maxRetries) {
+                    const delay = delays[attempt - 1];
+                    console.log(`Waiting ${delay/1000} seconds before retrying...`);
+                    await new Promise(resolve => setTimeout(resolve, delay));
+                } else {
+                    console.error('All attempts exhausted.');
+                    return false;
+                }
+            }
+        }
+        return false;
+    }
+
+    // --- PROCESS RESULTS AND SUBMIT ---
+    document.getElementById('surveyForm').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        if (!document.getElementById('consent').checked) { 
+            alert("Please confirm informed consent."); 
+            return; 
+        }
+        
+        const formData = new FormData(this);
+        const data = Object.fromEntries(formData.entries());
+        let resultsHTML = '';
+
+        // 1. PSS
+        let pssScore = 0;
+        for (let i = 1; i <= 14; i++) {
+            let val = parseInt(data['pss' + i]);
+            if ([4, 5, 6, 7, 9, 10, 13].includes(i)) { val = 6 - val; }
+            pssScore += val;
+        }
+        let pssInterp = pssScore <= 18 ? "Low stress level" : (pssScore <= 37 ? "Moderate stress level" : "High stress level");
+        resultsHTML += `<h3>Perceived Stress Scale (PSS-14)</h3><p>Score: <strong>${pssScore}</strong> - ${pssInterp}</p>`;
+        data.pssScore = pssScore; data.pssInterp = pssInterp;
+
+        // 2. HADS
+        let hadsAnxScore = 0, hadsDepScore = 0;
+        for (let i = 1; i <= 7; i++) { hadsAnxScore += parseInt(data['hads_anx' + i] || 0); hadsDepScore += parseInt(data['hads_dep' + i] || 0); }
+        let anxInterp = hadsAnxScore <= 7 ? "Normal" : (hadsAnxScore <= 10 ? "Subclinically expressed anxiety" : "Clinically expressed anxiety");
+        let depInterp = hadsDepScore <= 7 ? "Normal" : (hadsDepScore <= 10 ? "Subclinically expressed depression" : "Clinically expressed depression");
+        resultsHTML += `<h3>HADS</h3><p>Anxiety: <strong>${hadsAnxScore}</strong> - ${anxInterp}</p><p>Depression: <strong>${hadsDepScore}</strong> - ${depInterp}</p>`;
+        data.hadsAnxScore = hadsAnxScore; data.hadsAnxInterp = anxInterp; data.hadsDepScore = hadsDepScore; data.hadsDepInterp = depInterp;
+
+        // 3. ISI
+        let isiScore = 0;
+        for (let i = 1; i <= 7; i++) { isiScore += parseInt(data['isi' + i] || 0); }
+        let isiInterp = isiScore <= 7 ? "No clinically significant insomnia" : (isiScore <= 14 ? "Subthreshold insomnia" : (isiScore <= 21 ? "Clinical insomnia (moderate severity)" : "Clinical insomnia (severe)"));
+        resultsHTML += `<h3>Insomnia Severity Index (ISI)</h3><p>Score: <strong>${isiScore}</strong> - ${isiInterp}</p>`;
+        data.isiScore = isiScore; data.isiInterp = isiInterp;
+
+        // 4. HPLP-II
+        let hplpSum = 0;
+        for (let i = 1; i <= 52; i++) { hplpSum += parseInt(data['hplp' + i] || 0); }
+        let hplpAvg = hplpSum / 52;
+        let hplpAvgFixed = hplpAvg.toFixed(2);
+        
+        let hplpInterp = "";
+        if (hplpAvg < 2.5) {
+            hplpInterp = "Low level of healthy lifestyle";
+        } else if (hplpAvg >= 2.5 && hplpAvg < 3.0) {
+            hplpInterp = "Satisfactory level";
+        } else if (hplpAvg >= 3.0 && hplpAvg < 3.5) {
+            hplpInterp = "Good level";
+        } else {
+            hplpInterp = "High level of healthy lifestyle";
+        }
+
+        resultsHTML += `<h3>Health-Promoting Lifestyle Profile (HPLP-II)</h3><p>Average score: <strong>${hplpAvgFixed}</strong> - ${hplpInterp}</p>`;
+        data.hplpAvg = hplpAvgFixed; data.hplpInterp = hplpInterp;
+
+        // 5. PSQI
+        let c1 = parseInt(data['psqi6']);
+        let latencyMin = parseInt(data['psqi2']);
+        let latencyScore = latencyMin <= 15 ? 0 : (latencyMin <= 30 ? 1 : (latencyMin <= 60 ? 2 : 3));
+        let c2 = Math.min(3, latencyScore + parseInt(data['psqi5a']));
+        let sleepHours = parseFloat(data['psqi4']);
+        let c3 = sleepHours > 7 ? 0 : (sleepHours >= 6 ? 1 : (sleepHours >= 5 ? 2 : 3));
+        let time1 = data['psqi1'].split(':'); let time3 = data['psqi3'].split(':');
+        let bedTime = new Date(2000, 0, 1, time1[0], time1[1]); let wakeTime = new Date(2000, 0, 1, time3[0], time3[1]);
+        if (wakeTime < bedTime) { wakeTime.setDate(wakeTime.getDate() + 1); }
+        let timeInBed = (wakeTime - bedTime) / (1000 * 60 * 60);
+        let efficiency = (sleepHours / timeInBed) * 100;
+        let c4 = efficiency > 85 ? 0 : (efficiency >= 75 ? 1 : (efficiency >= 65 ? 2 : 3));
+        
+        let disturbanceSum = 0;
+        for (let i = 0; i < 9; i++) { 
+            let letter = String.fromCharCode(97 + i); 
+            disturbanceSum += parseInt(data['psqi5' + letter] || 0); 
+        }
+        let c5 = disturbanceSum === 0 ? 0 : (disturbanceSum <= 9 ? 1 : (disturbanceSum <= 18 ? 2 : 3));
+        
+        let c6 = parseInt(data['psqi7']);
+        let daytimeSum = parseInt(data['psqi8']) + parseInt(data['psqi9']);
+        let c7 = daytimeSum === 0 ? 0 : (daytimeSum <= 2 ? 1 : (daytimeSum <= 4 ? 2 : 3));
+        
+        let psqiTotal = c1 + c2 + c3 + c4 + c5 + c6 + c7;
+        let psqiInterp = psqiTotal <= 5 ? "Good sleep quality" : "Poor sleep quality (consultation with a specialist is recommended)";
+        resultsHTML += `<h3>Pittsburgh Sleep Quality Index (PSQI)</h3><p>Total score: <strong>${psqiTotal}</strong> - ${psqiInterp}</p>`;
+        data.psqiTotal = psqiTotal; data.psqiInterp = psqiInterp;
+
+        // 6. Chronotype
+        let chronoScore = 0;
+        for (let i = 1; i <= 19; i++) { chronoScore += parseInt(data['chrono' + i] || 0); }
+        
+        let chronoType = "";
+        let chronoDesc = "";
+        if (chronoScore >= 16 && chronoScore <= 30) {
+            chronoType = "Definitely evening type";
+            chronoDesc = "Pronounced 'night owl'. Maximum energy at night. Difficulty with morning schedules.";
+        } else if (chronoScore >= 31 && chronoScore <= 41) {
+            chronoType = "Moderately evening type";
+            chronoDesc = "Tendency toward evening activity. Adapts easily to late schedules.";
+        } else if (chronoScore >= 42 && chronoScore <= 58) {
+            chronoType = "Intermediate type";
+            chronoDesc = "'Dove'. Most flexible rhythm. Peak productivity in the middle of the day.";
+        } else if (chronoScore >= 59 && chronoScore <= 69) {
+            chronoType = "Moderately morning type";
+            chronoDesc = "Tendency toward early rising and productive mornings. Tires quickly in the evening.";
+        } else if (chronoScore >= 70 && chronoScore <= 86) {
+            chronoType = "Definitely morning type";
+            chronoDesc = "Pronounced 'lark'. Wakes easily at dawn, high activity until noon.";
+        } else {
+            chronoType = "Undetermined";
+            chronoDesc = "Score outside the range.";
+        }
+
+        resultsHTML += `<h3>Chronotype Questionnaire</h3><p>Score: <strong>${chronoScore}</strong> - ${chronoType} (${chronoDesc})</p>`;
+        data.chronoScore = chronoScore; data.chronoType = chronoType; data.chronoDesc = chronoDesc;
+
+        // Show results immediately
+        document.getElementById('resultsContent').innerHTML = resultsHTML;
+        document.getElementById('results').style.display = 'block';
+        document.getElementById('results').scrollIntoView({ behavior: 'smooth' });
+        document.getElementById('submitBtn').disabled = true;
+        document.getElementById('submitBtn').textContent = 'Results received. Sending data...';
+        
+        const inputs = document.querySelectorAll('input, select');
+        inputs.forEach(input => input.disabled = true);
+
+        const success = await sendDataWithRetry(data);
+        
+        if (success) {
+            document.getElementById('submitBtn').textContent = 'Results received. Data sent.';
+            console.log('Data successfully sent');
+        } else {
+            document.getElementById('submitBtn').textContent = 'Results received, but data may not have been saved.';
+            alert('Your results are shown on the screen, but an error occurred while sending data. Please contact the researcher at +375292873195 to report this.');
+        }
+    });
+</script>
+
+</body>
+</html>
